@@ -31,11 +31,11 @@ AOracleFarmPlot::AOracleFarmPlot()
 	CropMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Crop"));
 	CropMesh->SetupAttachment(SoilMesh);
 	// Broto bonito: abóbora do pack de vila; fallback esfera da engine.
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> PumpkinMesh(TEXT(
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> PumpkinFinder(TEXT(
 		"/Game/StylizedIsland/Mesh/Props/SM_Food/SM_Stylized_Food_Mesh/SM_Stylized_Food_Pumpkin.SM_Stylized_Food_Pumpkin"));
-	if (PumpkinMesh.Succeeded())
+	if (PumpkinFinder.Succeeded())
 	{
-		CropMesh->SetStaticMesh(PumpkinMesh.Object);
+		CropMesh->SetStaticMesh(PumpkinFinder.Object);
 		bUsingPrettyCrop = true;
 	}
 	else if (SphereMesh.Succeeded())
