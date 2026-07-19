@@ -1,0 +1,39 @@
+# ===== Unreal Engine 5 =====
+# Compilados e gerados — NUNCA versionar
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Build/
+
+# Arquivos de solução gerados (regenerados via "Generate Project Files")
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+.vs/
+.vscode/
+.idea/
+
+# Plugins compilados
+Plugins/**/Binaries/
+Plugins/**/Intermediate/
+
+# ===== Packs da Fab (licença Epic proíbe redistribuir; re-baixe da sua
+# biblioteca: editor -> botão Fab -> Minha biblioteca -> Add to project) =====
+Content/StylizedIsland/
+Content/PackOfTreeEnts/
+Content/__ExternalActors__/StylizedIsland/
+Content/__ExternalObjects__/StylizedIsland/
+Content/__ExternalActors__/PackOfTreeEnts/
+Content/__ExternalObjects__/PackOfTreeEnts/
+
+# ===== Sistema =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Backups do editor =====
+*.autosave
