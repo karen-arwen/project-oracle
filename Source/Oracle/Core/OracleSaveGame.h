@@ -48,7 +48,7 @@ class ORACLE_API UOracleSaveGame : public USaveGame
 	GENERATED_BODY()
 
 public:
-	static constexpr int32 CurrentVersion = 1;
+	static constexpr int32 CurrentVersion = 2;
 
 	UPROPERTY() int32 Version = CurrentVersion;
 
@@ -59,4 +59,7 @@ public:
 	UPROPERTY() TArray<FOracleSavedItem> Inventory;
 	UPROPERTY() TArray<FOracleSavedPlot> FarmPlots;
 	UPROPERTY() TArray<FOracleSavedProp> PlacedProps;
+
+	// v2: compêndio de coleções (nomes de itens descobertos).
+	UPROPERTY() TArray<FString> DiscoveredItems;
 };

@@ -17,7 +17,10 @@ Regra: um módulo por vez, cada um 100% funcional antes do próximo. Critério d
 | 9 | ✅ Save v1 | F5/F9: jogador, tempo, inventário, fazenda, móveis | Fechar o jogo e continuar |
 | 10 | ✅ Decoração v1 | Fantasma com grid snap, girar, posicionar/guardar | Decorar com móveis |
 | 11 | Sessão de tuning | TESTAR TUDO em mãos, ajustar valores, corrigir bugs | Checklist de game feel passa |
-| 12 | Passe visual | Assets reais (Fab/Marketplace), materiais, luz, pós-processo | Screenshot digna de divulgação |
+| 12 | ✅ Passe visual v1 | Packs Fab integrados, luz cozy, sol/lua dinâmicos | Vila jogável e bonita |
+| 13 | ✅ Coleções v1 | Compêndio (descobertas, totais), toasts de coleta, save v2 | Descobrir item novo dá alegria |
+| 14 | Vila do Oracle | Montar nossa vila no L_Sandbox com o FANTASTIC pack | Mapa próprio digno de screenshot |
+| 15 | Áudio v1 | Passos, coleta, ambiente — ganchos prontos, faltam assets | Mundo deixa de ser mudo |
 
 **Meta do Prototype:** 20 minutos de loop cozy — explorar, coletar, plantar, decorar — que dê vontade de continuar. Tudo com assets placeholder/marketplace.
 

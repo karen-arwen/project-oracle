@@ -30,7 +30,15 @@ AOracleFarmPlot::AOracleFarmPlot()
 
 	CropMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Crop"));
 	CropMesh->SetupAttachment(SoilMesh);
-	if (SphereMesh.Succeeded())
+	// Broto bonito: abóbora do pack de vila; fallback esfera da engine.
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> PumpkinMesh(TEXT(
+		"/Game/StylizedIsland/Mesh/Props/SM_Food/SM_Stylized_Food_Mesh/SM_Stylized_Food_Pumpkin.SM_Stylized_Food_Pumpkin"));
+	if (PumpkinMesh.Succeeded())
+	{
+		CropMesh->SetStaticMesh(PumpkinMesh.Object);
+		bUsingPrettyCrop = true;
+	}
+	else if (SphereMesh.Succeeded())
 	{
 		CropMesh->SetStaticMesh(SphereMesh.Object);
 	}
@@ -164,17 +172,22 @@ void AOracleFarmPlot::UpdateVisuals()
 	{
 		const float Progress = FMath::Clamp(
 			static_cast<float>(DaysGrown) / FMath::Max(1, Crop->GrowthDays), 0.f, 1.f);
-		const float Scale = FMath::Lerp(0.25f, 0.9f, Progress);
+		// Maduro ganha um "pulo" de escala — colheita implora para ser notada.
+		const float Ripe = State == EOraclePlotState::Ready ? 1.25f : 1.f;
+		const float Scale = FMath::Lerp(0.3f, 1.f, Progress) * Ripe;
 		// Compensa o achatamento do solo para o broto não nascer esmagado.
 		CropMesh->SetRelativeScale3D(FVector(Scale, Scale, Scale / 0.12f));
-		CropMesh->SetRelativeLocation(FVector(0.f, 0.f, 50.f + Scale * 40.f));
+		CropMesh->SetRelativeLocation(FVector(0.f, 0.f, 55.f));
 
-		if (UMaterialInstanceDynamic* MID = CropMesh->CreateAndSetMaterialInstanceDynamic(0))
+		if (!bUsingPrettyCrop)
 		{
-			const FLinearColor Color = State == EOraclePlotState::Ready
-				? FLinearColor(0.9f, 0.25f, 0.2f)   // maduro: vermelho
-				: FLinearColor(0.2f, 0.7f, 0.25f);  // crescendo: verde
-			MID->SetVectorParameterValue(TEXT("Color"), Color);
+			if (UMaterialInstanceDynamic* MID = CropMesh->CreateAndSetMaterialInstanceDynamic(0))
+			{
+				const FLinearColor Color = State == EOraclePlotState::Ready
+					? FLinearColor(0.9f, 0.25f, 0.2f)
+					: FLinearColor(0.2f, 0.7f, 0.25f);
+				MID->SetVectorParameterValue(TEXT("Color"), Color);
+			}
 		}
 	}
 }

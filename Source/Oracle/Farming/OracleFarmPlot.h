@@ -65,4 +65,5 @@ private:
 	EOraclePlotState State = EOraclePlotState::Empty;
 	int32 DaysGrown = 0;
 	bool bWateredToday = false;
+	bool bUsingPrettyCrop = false;
 };

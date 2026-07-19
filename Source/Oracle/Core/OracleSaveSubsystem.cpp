@@ -4,6 +4,7 @@
 
 #include "Building/OraclePlacedProp.h"
 #include "Character/OracleCharacter.h"
+#include "Collections/OracleCollectionSubsystem.h"
 #include "Core/OracleSaveGame.h"
 #include "Core/OracleTimeSubsystem.h"
 #include "EngineUtils.h"
@@ -62,6 +63,12 @@ bool UOracleSaveSubsystem::SaveWorld()
 		{
 			Save->PlacedProps.Add({It->GetSourceItem()->GetName(), It->GetActorTransform()});
 		}
+	}
+
+	if (const UOracleCollectionSubsystem* Collection =
+			GetGameInstance()->GetSubsystem<UOracleCollectionSubsystem>())
+	{
+		Save->DiscoveredItems = Collection->GetDiscoveredForSave();
 	}
 
 	const bool bOk = UGameplayStatics::SaveGameToSlot(Save, SlotName, 0);
@@ -131,6 +138,12 @@ bool UOracleSaveSubsystem::LoadWorld()
 				Prop->InitFromItem(Item);
 			}
 		}
+	}
+
+	if (UOracleCollectionSubsystem* Collection =
+			GetGameInstance()->GetSubsystem<UOracleCollectionSubsystem>())
+	{
+		Collection->RestoreFromSave(Save->DiscoveredItems);
 	}
 
 	UE_LOG(LogOracle, Log, TEXT("LoadWorld: ok"));

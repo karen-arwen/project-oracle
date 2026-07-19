@@ -2,6 +2,22 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
+## [0.7.0] - 2026-07-19 — Compêndio de Coleções + juice de coleta
+
+### Adicionado
+- `UOracleCollectionSubsystem`: registro de descobertas e totais coletados por item — base de TODAS as coleções futuras (peixes, insetos, minerais, receitas, roupas).
+- Toasts no HUD: "+2 Abóbora Estrela" a cada coleta e "✦ Novo na coleção!" dourado na primeira descoberta (com evento `OnItemDiscovered` para futuras conquistas).
+- Contador "Compêndio: N descobertos" no HUD.
+- Save v2: descobertas persistem no F5/F9 (retrocompatível com saves v1).
+
+### Alterado (0.5–0.6, sessão anterior)
+- Lua real à noite (luar azulado, sombras suaves); noite legível.
+- Fazenda: cultivo cresce como abóbora do pack, "pulo" de escala ao amadurecer.
+- Exposição cozy (+0.9), dia começa 10h30, motion blur off, sharpen anime.
+- Props reais nos itens demo (cogumelos, troncos, cadeira, lampião).
+- Packs: Stylized Village, Pack of Tree Ents e FANTASTIC Village Pack no projeto (fora do git).
+- Publicado em github.com/karen-arwen/project-oracle (privado).
+
 ## [0.4.0] - 2026-07-19 — Ambiente visual dinâmico
 
 ### Adicionado

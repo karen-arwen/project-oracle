@@ -2,11 +2,27 @@
 
 #include "Inventory/OracleInventoryComponent.h"
 
+#include "Collections/OracleCollectionSubsystem.h"
+#include "Engine/GameInstance.h"
+#include "GameFramework/Actor.h"
+
 void UOracleInventoryComponent::AddItem(UOracleItemDefinition* Item, int32 Count)
 {
 	if (!Item || Count <= 0)
 	{
 		return;
+	}
+
+	// Compêndio: registra coleta e descobertas (toast no HUD).
+	if (const AActor* Owner = GetOwner())
+	{
+		if (UGameInstance* GI = Owner->GetGameInstance())
+		{
+			if (UOracleCollectionSubsystem* Collection = GI->GetSubsystem<UOracleCollectionSubsystem>())
+			{
+				Collection->RegisterItemCollected(Item, Count);
+			}
+		}
 	}
 
 	// Preenche pilhas existentes antes de criar novas.

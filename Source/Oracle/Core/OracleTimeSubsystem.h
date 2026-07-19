@@ -61,9 +61,9 @@ public:
 private:
 	void UpdateSun();
 
-	float TimeOfDayHours = 9.f;  // começa às 9h do dia 1
+	float TimeOfDayHours = 10.5f;  // começa no meio da manhã, luz dourada alta
 	int32 DayNumber = 1;
-	int32 LastBroadcastHour = 9;
+	int32 LastBroadcastHour = 10;
 
 	TWeakObjectPtr<ADirectionalLight> Sun;
 	TWeakObjectPtr<AActor> SunController;

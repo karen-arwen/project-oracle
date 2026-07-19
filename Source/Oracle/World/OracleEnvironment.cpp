@@ -24,6 +24,14 @@ AOracleEnvironment::AOracleEnvironment()
 	Sun->SetIntensity(DayIntensity);
 	Sun->SetAtmosphereSunLight(true);
 
+	Moon = CreateDefaultSubobject<UDirectionalLightComponent>(TEXT("Moon"));
+	Moon->SetupAttachment(RootComponent);
+	Moon->SetMobility(EComponentMobility::Movable);
+	Moon->SetIntensity(0.f);
+	Moon->SetLightColor(NightColor);
+	Moon->SetAtmosphereSunLight(false);
+	Moon->SetCastShadows(false);  // luar suave, sem sombras duras
+
 	SkyAtmosphere = CreateDefaultSubobject<USkyAtmosphereComponent>(TEXT("SkyAtmosphere"));
 	SkyAtmosphere->SetupAttachment(RootComponent);
 
@@ -54,7 +62,7 @@ AOracleEnvironment::AOracleEnvironment()
 	S.bOverride_VignetteIntensity = true;
 	S.VignetteIntensity = 0.35f;
 	S.bOverride_AutoExposureBias = true;
-	S.AutoExposureBias = 0.4f;
+	S.AutoExposureBias = 0.9f;  // cozy = claro e acolhedor, nunca sombrio
 }
 
 void AOracleEnvironment::BeginPlay()
@@ -121,24 +129,28 @@ void AOracleEnvironment::UpdateLighting()
 	// 6h nasce, 12h pico, 18h põe (mesma convenção do TimeSubsystem).
 	const float Pitch = ((Time->GetTimeOfDayHours() - 6.f) / 24.f) * -360.f;
 	const FRotator SunRot(Pitch, 40.f, 0.f);
-	Sun->SetWorldRotation(SunRot);
 
 	// Altura do sol: 1 = meio-dia, 0 = horizonte, <0 = noite.
 	const float Height = -SunRot.Vector().Z;
 
+	Sun->SetWorldRotation(SunRot);
+
 	if (Height > 0.f)
 	{
-		// Crepúsculo → dia: laranja vira branco-quente.
+		// Crepúsculo → dia: laranja vira branco-quente. Lua desligada.
 		const float DayBlend = FMath::Clamp(Height / 0.3f, 0.f, 1.f);
 		Sun->SetLightColor(FMath::Lerp(DuskColor, DayColor, DayBlend));
 		Sun->SetIntensity(FMath::Lerp(0.6f, DayIntensity, DayBlend));
 		Fog->SetFogDensity(FMath::Lerp(0.03f, 0.013f, DayBlend));
+		Moon->SetIntensity(0.f);
 	}
 	else
 	{
-		// Noite: luar azulado fraco, névoa mais presente.
-		Sun->SetLightColor(NightColor);
-		Sun->SetIntensity(NightIntensity);
-		Fog->SetFogDensity(0.035f);
+		// Noite: sol apagado sob o horizonte (céu escurece correto) e a
+		// LUA assume — luar azulado de cima. Noite cozy é legível, não breu.
+		Sun->SetIntensity(0.f);
+		Moon->SetWorldRotation(FRotator(Pitch + 180.f, 220.f, 0.f));
+		Moon->SetIntensity(NightIntensity);
+		Fog->SetFogDensity(0.025f);
 	}
 }

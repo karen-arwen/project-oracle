@@ -4,6 +4,7 @@
 
 #include "Building/OraclePlacementComponent.h"
 #include "Character/OracleCharacter.h"
+#include "Collections/OracleCollectionSubsystem.h"
 #include "Core/OracleTimeSubsystem.h"
 #include "Engine/Canvas.h"
 #include "Engine/Engine.h"
@@ -61,6 +62,26 @@ void AOracleHUD::DrawHUD()
 				32.f, Y, FLinearColor::White);
 			Y += 22.f;
 		}
+	}
+
+	// Toasts de coleta/descoberta (direita) + contador do compêndio.
+	if (UOracleCollectionSubsystem* Collection =
+			GetGameInstance()->GetSubsystem<UOracleCollectionSubsystem>())
+	{
+		float ToastY = Canvas->SizeY * 0.35f;
+		for (const FOracleCollectionEvent& Event : Collection->GetRecentEvents())
+		{
+			const FLinearColor Color = Event.bIsDiscovery
+				? FLinearColor(1.f, 0.85f, 0.35f)   // descoberta: dourado
+				: FLinearColor(0.85f, 1.f, 0.9f);   // coleta: verde-claro
+			DrawPanelText(Event.Text.ToString(), Canvas->SizeX - 340.f, ToastY,
+				Color, Event.bIsDiscovery ? 1.25f : 1.05f);
+			ToastY += 30.f;
+		}
+
+		DrawPanelText(FString::Printf(TEXT("Compêndio: %d descobertos"),
+				Collection->GetDiscoveredCount()),
+			32.f, Y + 14.f, FLinearColor(0.75f, 0.85f, 1.f), 0.95f);
 	}
 
 	// Dicas (canto inferior esquerdo).

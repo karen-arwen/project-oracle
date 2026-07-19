@@ -52,13 +52,14 @@ protected:
 	FLinearColor NightColor = FLinearColor(0.35f, 0.45f, 0.8f);
 
 	UPROPERTY(EditAnywhere, Category = "Oracle|Sun", meta = (ClampMin = 0))
-	float DayIntensity = 8.f;
+	float DayIntensity = 10.f;
 
 	UPROPERTY(EditAnywhere, Category = "Oracle|Sun", meta = (ClampMin = 0))
-	float NightIntensity = 0.05f;
+	float NightIntensity = 0.6f;
 
 	// --- Componentes ---
 	UPROPERTY(VisibleAnywhere, Category = "Oracle") TObjectPtr<UDirectionalLightComponent> Sun;
+	UPROPERTY(VisibleAnywhere, Category = "Oracle") TObjectPtr<UDirectionalLightComponent> Moon;
 	UPROPERTY(VisibleAnywhere, Category = "Oracle") TObjectPtr<USkyAtmosphereComponent> SkyAtmosphere;
 	UPROPERTY(VisibleAnywhere, Category = "Oracle") TObjectPtr<UVolumetricCloudComponent> Clouds;
 	UPROPERTY(VisibleAnywhere, Category = "Oracle") TObjectPtr<USkyLightComponent> SkyLight;
