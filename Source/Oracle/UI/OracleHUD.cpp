@@ -5,6 +5,8 @@
 #include "Building/OraclePlacementComponent.h"
 #include "Character/OracleCharacter.h"
 #include "Collections/OracleCollectionSubsystem.h"
+#include "Crafting/OracleCraftingComponent.h"
+#include "Crafting/OracleRecipeDefinition.h"
 #include "Core/OracleTimeSubsystem.h"
 #include "Engine/Canvas.h"
 #include "Engine/Engine.h"
@@ -62,6 +64,14 @@ void AOracleHUD::DrawHUD()
 				32.f, Y, FLinearColor::White);
 			Y += 22.f;
 		}
+	}
+
+	// Dica de craft: aparece quando há receita possível com a mochila atual.
+	if (const UOracleRecipeDefinition* Recipe = Player->GetCrafting()->GetFirstCraftable())
+	{
+		DrawPanelText(FString::Printf(TEXT("[C] Criar: %s"), *Recipe->DisplayName.ToString()),
+			Canvas->SizeX * 0.5f - 80.f, Canvas->SizeY * 0.78f,
+			FLinearColor(1.f, 0.8f, 0.5f), 1.15f);
 	}
 
 	// Toasts de coleta/descoberta (direita) + contador do compêndio.

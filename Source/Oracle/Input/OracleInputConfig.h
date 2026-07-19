@@ -50,6 +50,10 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Interaction")
 	TObjectPtr<UInputAction> Interact;
 
+	/** Digital: criar a primeira receita disponível. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Crafting")
+	TObjectPtr<UInputAction> Craft;
+
 	/** Digital: liga/desliga o modo de decoração. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Building")
 	TObjectPtr<UInputAction> BuildToggle;

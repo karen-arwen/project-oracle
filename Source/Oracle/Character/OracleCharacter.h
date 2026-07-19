@@ -13,6 +13,7 @@ class USoundBase;
 class USpringArmComponent;
 class UOracleCameraComponent;
 class UOracleCharacterMovementComponent;
+class UOracleCraftingComponent;
 class UOracleInteractionComponent;
 class UOracleInventoryComponent;
 class UOraclePlacementComponent;
@@ -54,6 +55,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Oracle")
 	UOraclePlacementComponent* GetPlacement() const { return Placement; }
 
+	UFUNCTION(BlueprintPure, Category = "Oracle")
+	UOracleCraftingComponent* GetCrafting() const { return Crafting; }
+
 	UCameraComponent* GetThirdPersonCamera() const { return Camera; }
 
 	/** Chamado por Anim Notify (passos). Null-safe: sem asset, sem som. */
@@ -73,6 +77,7 @@ protected:
 	void Input_SprintEnd(const FInputActionValue& Value);
 	void Input_WalkToggle(const FInputActionValue& Value);
 	void Input_Interact(const FInputActionValue& Value);
+	void Input_Craft(const FInputActionValue& Value);
 	void Input_BuildToggle(const FInputActionValue& Value);
 	void Input_Place(const FInputActionValue& Value);
 	void Input_RotateProp(const FInputActionValue& Value);
@@ -97,6 +102,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Oracle|Systems")
 	TObjectPtr<UOraclePlacementComponent> Placement;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Oracle|Systems")
+	TObjectPtr<UOracleCraftingComponent> Crafting;
 
 	// --- Game feel: pulo ---
 	/** Janela (s) em que o pulo ainda vale após sair de uma borda. */

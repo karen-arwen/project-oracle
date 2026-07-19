@@ -78,7 +78,9 @@ void FOracleInputDefaults::Build(UObject* Outer, TObjectPtr<UOracleInputConfig>&
 	Config->QuickSave   = MakeAction(Outer, TEXT("IA_QuickSave"),   EInputActionValueType::Boolean);
 	Config->QuickLoad   = MakeAction(Outer, TEXT("IA_QuickLoad"),   EInputActionValueType::Boolean);
 
+	Config->Craft = MakeAction(Outer, TEXT("IA_Craft"), EInputActionValueType::Boolean);
 	Context->MapKey(Config->Interact, EKeys::E);
+	Context->MapKey(Config->Craft, EKeys::C);
 	Context->MapKey(Config->BuildToggle, EKeys::B);
 	Context->MapKey(Config->Place, EKeys::LeftMouseButton);
 	Context->MapKey(Config->RotateProp, EKeys::R);

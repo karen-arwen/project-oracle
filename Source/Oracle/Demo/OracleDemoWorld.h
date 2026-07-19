@@ -8,6 +8,7 @@
 
 class UOracleCropDefinition;
 class UOracleItemDefinition;
+class UOracleRecipeDefinition;
 
 /**
  * Mundo demo autogerado: cria itens/cultivo de teste em runtime e povoa
@@ -37,5 +38,8 @@ private:
 	UPROPERTY() TObjectPtr<UOracleItemDefinition> WoodItem;
 	UPROPERTY() TObjectPtr<UOracleItemDefinition> ChairItem;
 	UPROPERTY() TObjectPtr<UOracleItemDefinition> LampItem;
+	UPROPERTY() TObjectPtr<UOracleItemDefinition> PieItem;
 	UPROPERTY() TObjectPtr<UOracleCropDefinition> BerryCrop;
+	UPROPERTY() TObjectPtr<UOracleRecipeDefinition> ChairRecipe;
+	UPROPERTY() TObjectPtr<UOracleRecipeDefinition> PieRecipe;
 };

@@ -5,6 +5,8 @@
 #include "Character/OracleCharacter.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
+#include "Crafting/OracleCraftingComponent.h"
+#include "Crafting/OracleRecipeDefinition.h"
 #include "Farming/OracleCropDefinition.h"
 #include "Farming/OracleFarmPlot.h"
 #include "Inventory/OracleInventoryComponent.h"
@@ -73,6 +75,23 @@ void AOracleDemoWorld::CreateDemoDefinitions()
 		NSLOCTEXT("OracleDemo", "Lamp", "Lampião de Jardim"),
 		EOracleItemCategory::Furniture, LampMesh, FVector(1.f));
 
+	PieItem = MakeItem(this, TEXT("Item_Torta"),
+		NSLOCTEXT("OracleDemo", "Pie", "Torta de Abóbora"),
+		EOracleItemCategory::Food,
+		TEXT("/Game/StylizedIsland/Mesh/Props/SM_Food/SM_Stylized_Food_Mesh/SM_Stylized_Food_Bread.SM_Stylized_Food_Bread"),
+		FVector(0.7f));
+
+	// Receitas demo: madeira vira móvel; abóboras viram torta (culinária!).
+	ChairRecipe = NewObject<UOracleRecipeDefinition>(this, TEXT("Recipe_Cadeirinha"));
+	ChairRecipe->DisplayName = NSLOCTEXT("OracleDemo", "RChair", "Cadeirinha da Vila");
+	ChairRecipe->Ingredients = {{WoodItem, 3}};
+	ChairRecipe->Result = ChairItem;
+
+	PieRecipe = NewObject<UOracleRecipeDefinition>(this, TEXT("Recipe_Torta"));
+	PieRecipe->DisplayName = NSLOCTEXT("OracleDemo", "RPie", "Torta de Abóbora");
+	PieRecipe->Ingredients = {{BerryItem, 2}};
+	PieRecipe->Result = PieItem;
+
 	BerryCrop = NewObject<UOracleCropDefinition>(this, TEXT("Crop_FrutaEstrela"));
 	BerryCrop->DisplayName = NSLOCTEXT("OracleDemo", "BerryCrop", "Fruta Estrela");
 	BerryCrop->GrowthDays = 2;
@@ -139,5 +158,8 @@ void AOracleDemoWorld::GiveStartingItems()
 		Inventory->AddItem(SeedItem, 4);
 		Inventory->AddItem(ChairItem, 3);
 		Inventory->AddItem(LampItem, 2);
+
+		Player->GetCrafting()->LearnRecipe(ChairRecipe);
+		Player->GetCrafting()->LearnRecipe(PieRecipe);
 	}
 }

@@ -5,6 +5,7 @@
 #include "Animation/AnimInstance.h"
 #include "Building/OraclePlacementComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Crafting/OracleCraftingComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "Camera/OracleCameraComponent.h"
 #include "Character/OracleCharacterMovementComponent.h"
@@ -57,6 +58,7 @@ AOracleCharacter::AOracleCharacter(const FObjectInitializer& ObjectInitializer)
 	Inventory = CreateDefaultSubobject<UOracleInventoryComponent>(TEXT("Inventory"));
 	Interaction = CreateDefaultSubobject<UOracleInteractionComponent>(TEXT("Interaction"));
 	Placement = CreateDefaultSubobject<UOraclePlacementComponent>(TEXT("Placement"));
+	Crafting = CreateDefaultSubobject<UOracleCraftingComponent>(TEXT("Crafting"));
 
 	// Visual padrão: mannequin + animações do pacote Third Person (se presente).
 	// Null-safe: sem o pacote, o personagem volta a ser cápsula, sem crash.
@@ -197,6 +199,7 @@ void AOracleCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Input->BindAction(Config->Sprint,     ETriggerEvent::Completed, this, &AOracleCharacter::Input_SprintEnd);
 	Input->BindAction(Config->WalkToggle, ETriggerEvent::Started,   this, &AOracleCharacter::Input_WalkToggle);
 	Input->BindAction(Config->Interact,    ETriggerEvent::Started, this, &AOracleCharacter::Input_Interact);
+	Input->BindAction(Config->Craft,       ETriggerEvent::Started, this, &AOracleCharacter::Input_Craft);
 	Input->BindAction(Config->BuildToggle, ETriggerEvent::Started, this, &AOracleCharacter::Input_BuildToggle);
 	Input->BindAction(Config->Place,       ETriggerEvent::Started, this, &AOracleCharacter::Input_Place);
 	Input->BindAction(Config->RotateProp,  ETriggerEvent::Started, this, &AOracleCharacter::Input_RotateProp);
@@ -207,6 +210,11 @@ void AOracleCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void AOracleCharacter::Input_Interact(const FInputActionValue&)
 {
 	Interaction->TryInteract();
+}
+
+void AOracleCharacter::Input_Craft(const FInputActionValue&)
+{
+	Crafting->CraftBest();
 }
 
 void AOracleCharacter::Input_BuildToggle(const FInputActionValue&)
