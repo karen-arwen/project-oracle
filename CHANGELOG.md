@@ -18,6 +18,15 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 - Packs: Stylized Village, Pack of Tree Ents e FANTASTIC Village Pack no projeto (fora do git).
 - Publicado em github.com/karen-arwen/project-oracle (privado).
 
+## [0.8.0] - 2026-07-19 — Clima, Progressão, Áudio e Economia (modo autônomo)
+
+### Adicionado
+- **Clima dinâmico** (`UOracleWeatherSubsystem`): Sol/Nublado/Chuva sorteado a cada ~3h de jogo; afeta luz do sol e névoa; HUD + toast; evento `OnWeatherChanged`.
+- **Progressão por uso** (`UOracleSkillsComponent`): Coleta/Fazenda/Artesanato/Construção sobem jogando; level up com toast dourado; HUD; save v3.
+- **Áudio** (`UOracleAudioSubsystem`): camada de ambiente dia/noite/chuva com crossfade, dirigida por Tempo+Clima; data-driven, null-safe.
+- **Economia** (`UOracleWalletComponent` + `AOracleShop`): moeda "Folhas"; banca vende recursos/comida por BaseValue×taxa; HUD de moedas; save v4.
+- Toast genérico reutilizável (`AddToast`) no subsystem de coleções.
+
 ## [0.4.0] - 2026-07-19 — Ambiente visual dinâmico
 
 ### Adicionado

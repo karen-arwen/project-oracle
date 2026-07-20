@@ -19,8 +19,13 @@ Regra: um módulo por vez, cada um 100% funcional antes do próximo. Critério d
 | 11 | Sessão de tuning | TESTAR TUDO em mãos, ajustar valores, corrigir bugs | Checklist de game feel passa |
 | 12 | ✅ Passe visual v1 | Packs Fab integrados, luz cozy, sol/lua dinâmicos | Vila jogável e bonita |
 | 13 | ✅ Coleções v1 | Compêndio (descobertas, totais), toasts de coleta, save v2 | Descobrir item novo dá alegria |
-| 14 | Vila do Oracle | Montar nossa vila no L_Sandbox com o FANTASTIC pack | Mapa próprio digno de screenshot |
-| 15 | Áudio v1 | Passos, coleta, ambiente — ganchos prontos, faltam assets | Mundo deixa de ser mudo |
+| 14 | ✅ Clima v1 | Sol/nublado/chuva dinâmico afetando luz e névoa | Tempo muda sozinho |
+| 15 | ✅ Progressão v1 | Skills sobem pelo uso (sem classes) | Level up ao jogar |
+| 16 | ✅ Áudio v1 (código) | Ambiente dia/noite/chuva com crossfade | Falta atribuir sons dos packs |
+| 17 | ✅ Economia v1 | Carteira + banca de vendas | Vender fecha o loop |
+| 18 | Vila do Oracle | Montar a vila no L_Sandbox com FANTASTIC pack | Mapa próprio bonito |
+| 19 | Quests v1 | Missões ("colete 5 madeiras") com recompensa | Sempre algo a fazer |
+| 20 | Pesca v1 | Minigame no lago da vila | Compêndio de peixes |
 
 **Meta do Prototype:** 20 minutos de loop cozy — explorar, coletar, plantar, decorar — que dê vontade de continuar. Tudo com assets placeholder/marketplace.
 

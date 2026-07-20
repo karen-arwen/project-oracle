@@ -7,6 +7,7 @@
 #include "Engine/StaticMesh.h"
 #include "Crafting/OracleCraftingComponent.h"
 #include "Crafting/OracleRecipeDefinition.h"
+#include "Economy/OracleShop.h"
 #include "Farming/OracleCropDefinition.h"
 #include "Farming/OracleFarmPlot.h"
 #include "Inventory/OracleInventoryComponent.h"
@@ -145,6 +146,18 @@ void AOracleDemoWorld::SpawnWorldContent()
 		{
 			const FVector Pos = Origin + FVector(500.f + Row * 220.f, -900.f + Col * 220.f, 8.f);
 			World->SpawnActor<AOracleFarmPlot>(Pos, FRotator::ZeroRotator);
+		}
+	}
+
+	// Banca de vendas (barril do pack) logo à frente do spawn.
+	if (AOracleShop* Shop = World->SpawnActor<AOracleShop>(
+			Origin + FVector(250.f, -250.f, 40.f), FRotator::ZeroRotator))
+	{
+		if (UStaticMesh* Barrel = LoadObject<UStaticMesh>(nullptr,
+				TEXT("/Game/StylizedIsland/Mesh/Props/SM_Barrel/SM_Stylized_Barrel_Mesh/_Stylized_Barrel._Stylized_Barrel")))
+		{
+			Shop->Mesh->SetStaticMesh(Barrel);
+			Shop->Mesh->SetWorldScale3D(FVector(1.5f));
 		}
 	}
 }

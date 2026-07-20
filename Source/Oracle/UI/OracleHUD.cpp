@@ -7,6 +7,7 @@
 #include "Collections/OracleCollectionSubsystem.h"
 #include "Crafting/OracleCraftingComponent.h"
 #include "Crafting/OracleRecipeDefinition.h"
+#include "Economy/OracleWalletComponent.h"
 #include "Skills/OracleSkillsComponent.h"
 #include "World/OracleWeatherSubsystem.h"
 #include "Core/OracleTimeSubsystem.h"
@@ -38,6 +39,10 @@ void AOracleHUD::DrawHUD()
 		DrawPanelText(Clock, Canvas->SizeX * 0.5f - 110.f, 24.f,
 			FLinearColor(1.f, 0.95f, 0.8f), 1.4f);
 	}
+
+	// Moedas (topo direito).
+	DrawPanelText(FString::Printf(TEXT("%d Folhas"), Player->GetWallet()->GetCoins()),
+		Canvas->SizeX - 180.f, 24.f, FLinearColor(1.f, 0.9f, 0.4f), 1.3f);
 
 	// Prompt de interação (centro-baixo).
 	const FText Prompt = Player->GetInteraction()->GetFocusedText();

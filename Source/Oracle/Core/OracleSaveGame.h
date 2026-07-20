@@ -49,7 +49,7 @@ class ORACLE_API UOracleSaveGame : public USaveGame
 	GENERATED_BODY()
 
 public:
-	static constexpr int32 CurrentVersion = 3;
+	static constexpr int32 CurrentVersion = 4;
 
 	UPROPERTY() int32 Version = CurrentVersion;
 
@@ -66,4 +66,7 @@ public:
 
 	// v3: progressão por uso.
 	UPROPERTY() TMap<EOracleSkill, int32> SkillXP;
+
+	// v4: economia.
+	UPROPERTY() int32 Coins = 0;
 };
