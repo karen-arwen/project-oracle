@@ -42,6 +42,10 @@ public:
 	/** Chamado pelo inventário sempre que itens entram. */
 	void RegisterItemCollected(UOracleItemDefinition* Item, int32 Count);
 
+	/** Toast genérico no HUD (level up, clima, eventos). bGolden = destaque. */
+	UFUNCTION(BlueprintCallable, Category = "Oracle|Collection")
+	void AddToast(const FText& Text, bool bGolden = false);
+
 	UFUNCTION(BlueprintPure, Category = "Oracle|Collection")
 	bool IsDiscovered(const UOracleItemDefinition* Item) const;
 

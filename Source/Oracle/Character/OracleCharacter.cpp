@@ -6,6 +6,7 @@
 #include "Building/OraclePlacementComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Crafting/OracleCraftingComponent.h"
+#include "Skills/OracleSkillsComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "Camera/OracleCameraComponent.h"
 #include "Character/OracleCharacterMovementComponent.h"
@@ -59,6 +60,7 @@ AOracleCharacter::AOracleCharacter(const FObjectInitializer& ObjectInitializer)
 	Interaction = CreateDefaultSubobject<UOracleInteractionComponent>(TEXT("Interaction"));
 	Placement = CreateDefaultSubobject<UOraclePlacementComponent>(TEXT("Placement"));
 	Crafting = CreateDefaultSubobject<UOracleCraftingComponent>(TEXT("Crafting"));
+	Skills = CreateDefaultSubobject<UOracleSkillsComponent>(TEXT("Skills"));
 
 	// Visual padrão: mannequin + animações do pacote Third Person (se presente).
 	// Null-safe: sem o pacote, o personagem volta a ser cápsula, sem crash.

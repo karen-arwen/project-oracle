@@ -7,6 +7,8 @@
 #include "Collections/OracleCollectionSubsystem.h"
 #include "Crafting/OracleCraftingComponent.h"
 #include "Crafting/OracleRecipeDefinition.h"
+#include "Skills/OracleSkillsComponent.h"
+#include "World/OracleWeatherSubsystem.h"
 #include "Core/OracleTimeSubsystem.h"
 #include "Engine/Canvas.h"
 #include "Engine/Engine.h"
@@ -25,10 +27,15 @@ void AOracleHUD::DrawHUD()
 		return;
 	}
 
-	// Relógio (topo central).
+	// Relógio + clima (topo central).
 	if (const UOracleTimeSubsystem* Time = GetWorld()->GetSubsystem<UOracleTimeSubsystem>())
 	{
-		DrawPanelText(Time->GetClockText(), Canvas->SizeX * 0.5f - 70.f, 24.f,
+		FString Clock = Time->GetClockText();
+		if (const UOracleWeatherSubsystem* Weather = GetWorld()->GetSubsystem<UOracleWeatherSubsystem>())
+		{
+			Clock += TEXT("  ·  ") + Weather->GetWeatherName().ToString();
+		}
+		DrawPanelText(Clock, Canvas->SizeX * 0.5f - 110.f, 24.f,
 			FLinearColor(1.f, 0.95f, 0.8f), 1.4f);
 	}
 
@@ -92,6 +99,16 @@ void AOracleHUD::DrawHUD()
 		DrawPanelText(FString::Printf(TEXT("Compêndio: %d descobertos"),
 				Collection->GetDiscoveredCount()),
 			32.f, Y + 14.f, FLinearColor(0.75f, 0.85f, 1.f), 0.95f);
+	}
+
+	// Habilidades (progressão por uso).
+	{
+		const UOracleSkillsComponent* Sk = Player->GetSkills();
+		const FString SkillsLine = FString::Printf(
+			TEXT("Coleta %d · Fazenda %d · Artesanato %d · Construção %d"),
+			Sk->GetLevel(EOracleSkill::Coleta), Sk->GetLevel(EOracleSkill::Fazenda),
+			Sk->GetLevel(EOracleSkill::Artesanato), Sk->GetLevel(EOracleSkill::Construcao));
+		DrawPanelText(SkillsLine, 32.f, Y + 40.f, FLinearColor(0.9f, 0.8f, 1.f), 0.9f);
 	}
 
 	// Dicas (canto inferior esquerdo).

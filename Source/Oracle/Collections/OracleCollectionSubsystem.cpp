@@ -5,6 +5,15 @@
 #include "HAL/PlatformTime.h"
 #include "Inventory/OracleItemDefinition.h"
 
+void UOracleCollectionSubsystem::AddToast(const FText& Text, const bool bGolden)
+{
+	FOracleCollectionEvent Event;
+	Event.Text = Text;
+	Event.bIsDiscovery = bGolden;
+	Event.TimeSeconds = FPlatformTime::Seconds();
+	RecentEvents.Add(Event);
+}
+
 void UOracleCollectionSubsystem::RegisterItemCollected(UOracleItemDefinition* Item, const int32 Count)
 {
 	if (!Item || Count <= 0)

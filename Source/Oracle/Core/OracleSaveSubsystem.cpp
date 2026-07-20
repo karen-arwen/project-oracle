@@ -70,6 +70,7 @@ bool UOracleSaveSubsystem::SaveWorld()
 	{
 		Save->DiscoveredItems = Collection->GetDiscoveredForSave();
 	}
+	Save->SkillXP = Player->GetSkills()->GetAllXP();
 
 	const bool bOk = UGameplayStatics::SaveGameToSlot(Save, SlotName, 0);
 	UE_LOG(LogOracle, Log, TEXT("SaveWorld: %s"), bOk ? TEXT("ok") : TEXT("FALHOU"));
@@ -145,6 +146,7 @@ bool UOracleSaveSubsystem::LoadWorld()
 	{
 		Collection->RestoreFromSave(Save->DiscoveredItems);
 	}
+	Player->GetSkills()->RestoreFromSave(Save->SkillXP);
 
 	UE_LOG(LogOracle, Log, TEXT("LoadWorld: ok"));
 	return true;

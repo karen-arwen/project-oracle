@@ -10,6 +10,7 @@
 #include "Inventory/OracleInventoryComponent.h"
 #include "Inventory/OracleItemDefinition.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "Skills/OracleSkillsComponent.h"
 
 UOraclePlacementComponent::UOraclePlacementComponent()
 {
@@ -136,6 +137,7 @@ void UOraclePlacementComponent::ConfirmPlacement()
 		{
 			Prop->InitFromItem(ActiveItem);
 		}
+		Character->GetSkills()->AddXP(EOracleSkill::Construcao, 5);
 
 		// Continua no modo se ainda houver itens; senão sai.
 		if (Character->GetInventory()->CountOf(ActiveItem) == 0)

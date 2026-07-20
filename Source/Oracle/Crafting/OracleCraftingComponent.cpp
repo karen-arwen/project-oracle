@@ -6,6 +6,7 @@
 #include "Crafting/OracleRecipeDefinition.h"
 #include "Inventory/OracleInventoryComponent.h"
 #include "Inventory/OracleItemDefinition.h"
+#include "Skills/OracleSkillsComponent.h"
 
 void UOracleCraftingComponent::LearnRecipe(UOracleRecipeDefinition* Recipe)
 {
@@ -64,6 +65,11 @@ bool UOracleCraftingComponent::Craft(UOracleRecipeDefinition* Recipe)
 	}
 	// AddItem dispara o compêndio: toast "+1 {resultado}" (e descoberta).
 	Inventory->AddItem(Recipe->Result, Recipe->ResultCount);
+
+	if (const AOracleCharacter* Character = Cast<AOracleCharacter>(GetOwner()))
+	{
+		Character->GetSkills()->AddXP(EOracleSkill::Artesanato, 10);
+	}
 	return true;
 }
 

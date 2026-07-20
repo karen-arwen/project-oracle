@@ -14,6 +14,7 @@ class USpringArmComponent;
 class UOracleCameraComponent;
 class UOracleCharacterMovementComponent;
 class UOracleCraftingComponent;
+class UOracleSkillsComponent;
 class UOracleInteractionComponent;
 class UOracleInventoryComponent;
 class UOraclePlacementComponent;
@@ -57,6 +58,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Oracle")
 	UOracleCraftingComponent* GetCrafting() const { return Crafting; }
+
+	UFUNCTION(BlueprintPure, Category = "Oracle")
+	UOracleSkillsComponent* GetSkills() const { return Skills; }
 
 	UCameraComponent* GetThirdPersonCamera() const { return Camera; }
 
@@ -105,6 +109,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Oracle|Systems")
 	TObjectPtr<UOracleCraftingComponent> Crafting;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Oracle|Systems")
+	TObjectPtr<UOracleSkillsComponent> Skills;
 
 	// --- Game feel: pulo ---
 	/** Janela (s) em que o pulo ainda vale após sair de uma borda. */

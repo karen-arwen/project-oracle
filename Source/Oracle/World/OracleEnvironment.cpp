@@ -11,6 +11,7 @@
 #include "Core/OracleTimeSubsystem.h"
 #include "EngineUtils.h"
 #include "Oracle.h"
+#include "World/OracleWeatherSubsystem.h"
 
 AOracleEnvironment::AOracleEnvironment()
 {
@@ -135,13 +136,22 @@ void AOracleEnvironment::UpdateLighting()
 
 	Sun->SetWorldRotation(SunRot);
 
+	// Clima: nublado/chuva escurecem o sol e engrossam a névoa.
+	float SunMul = 1.f;
+	float FogMul = 1.f;
+	if (const UOracleWeatherSubsystem* Weather = GetWorld()->GetSubsystem<UOracleWeatherSubsystem>())
+	{
+		SunMul = Weather->GetSunMultiplier();
+		FogMul = Weather->GetFogMultiplier();
+	}
+
 	if (Height > 0.f)
 	{
 		// Crepúsculo → dia: laranja vira branco-quente. Lua desligada.
 		const float DayBlend = FMath::Clamp(Height / 0.3f, 0.f, 1.f);
 		Sun->SetLightColor(FMath::Lerp(DuskColor, DayColor, DayBlend));
-		Sun->SetIntensity(FMath::Lerp(0.6f, DayIntensity, DayBlend));
-		Fog->SetFogDensity(FMath::Lerp(0.03f, 0.013f, DayBlend));
+		Sun->SetIntensity(FMath::Lerp(0.6f, DayIntensity, DayBlend) * SunMul);
+		Fog->SetFogDensity(FMath::Lerp(0.03f, 0.013f, DayBlend) * FogMul);
 		Moon->SetIntensity(0.f);
 	}
 	else
@@ -150,7 +160,7 @@ void AOracleEnvironment::UpdateLighting()
 		// LUA assume — luar azulado de cima. Noite cozy é legível, não breu.
 		Sun->SetIntensity(0.f);
 		Moon->SetWorldRotation(FRotator(Pitch + 180.f, 220.f, 0.f));
-		Moon->SetIntensity(NightIntensity);
-		Fog->SetFogDensity(0.025f);
+		Moon->SetIntensity(NightIntensity * SunMul);
+		Fog->SetFogDensity(0.025f * FogMul);
 	}
 }

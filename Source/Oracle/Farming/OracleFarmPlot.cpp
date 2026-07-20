@@ -9,6 +9,7 @@
 #include "Inventory/OracleInventoryComponent.h"
 #include "Inventory/OracleItemDefinition.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "Skills/OracleSkillsComponent.h"
 #include "UObject/ConstructorHelpers.h"
 
 AOracleFarmPlot::AOracleFarmPlot()
@@ -114,17 +115,20 @@ void AOracleFarmPlot::Interact_Implementation(AOracleCharacter* Interactor)
 			DaysGrown = 0;
 			bWateredToday = false;
 			State = EOraclePlotState::Planted;
+			Interactor->GetSkills()->AddXP(EOracleSkill::Fazenda, 5);
 		}
 		break;
 	}
 	case EOraclePlotState::Planted:
 		bWateredToday = true;
+		Interactor->GetSkills()->AddXP(EOracleSkill::Fazenda, 3);
 		break;
 
 	case EOraclePlotState::Ready:
 		if (Crop && Crop->Produce)
 		{
 			Inventory->AddItem(Crop->Produce, Crop->ProduceAmount);
+			Interactor->GetSkills()->AddXP(EOracleSkill::Fazenda, 15);
 		}
 		Crop = nullptr;
 		DaysGrown = 0;

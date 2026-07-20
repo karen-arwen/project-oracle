@@ -8,6 +8,7 @@
 #include "Inventory/OracleItemDefinition.h"
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraFunctionLibrary.h"
+#include "Skills/OracleSkillsComponent.h"
 #include "NiagaraSystem.h"
 #include "TimerManager.h"
 
@@ -48,6 +49,7 @@ void AOracleGatherable::Interact_Implementation(AOracleCharacter* Interactor)
 	}
 
 	Interactor->GetInventory()->AddItem(ItemToGive, Amount);
+	Interactor->GetSkills()->AddXP(EOracleSkill::Coleta, 10);
 
 	if (GatherSound)
 	{

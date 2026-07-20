@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "Skills/OracleSkillsComponent.h"
 #include "OracleSaveGame.generated.h"
 
 USTRUCT()
@@ -48,7 +49,7 @@ class ORACLE_API UOracleSaveGame : public USaveGame
 	GENERATED_BODY()
 
 public:
-	static constexpr int32 CurrentVersion = 2;
+	static constexpr int32 CurrentVersion = 3;
 
 	UPROPERTY() int32 Version = CurrentVersion;
 
@@ -62,4 +63,7 @@ public:
 
 	// v2: compêndio de coleções (nomes de itens descobertos).
 	UPROPERTY() TArray<FString> DiscoveredItems;
+
+	// v3: progressão por uso.
+	UPROPERTY() TMap<EOracleSkill, int32> SkillXP;
 };
