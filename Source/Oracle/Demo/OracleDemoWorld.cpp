@@ -8,6 +8,8 @@
 #include "Crafting/OracleCraftingComponent.h"
 #include "Crafting/OracleRecipeDefinition.h"
 #include "Economy/OracleShop.h"
+#include "Quests/OracleQuestComponent.h"
+#include "Quests/OracleQuestDefinition.h"
 #include "Farming/OracleCropDefinition.h"
 #include "Farming/OracleFarmPlot.h"
 #include "Inventory/OracleInventoryComponent.h"
@@ -93,6 +95,24 @@ void AOracleDemoWorld::CreateDemoDefinitions()
 	PieRecipe->Ingredients = {{BerryItem, 2}};
 	PieRecipe->Result = PieItem;
 
+	// Missões demo em sequência — o jogador nunca fica sem objetivo.
+	QuestWood = NewObject<UOracleQuestDefinition>(this, TEXT("Quest_Madeira"));
+	QuestWood->Title = NSLOCTEXT("OracleDemo", "QWoodT", "Coletor Iniciante");
+	QuestWood->Description = NSLOCTEXT("OracleDemo", "QWoodD", "A vila precisa de madeira. Junte 3 troncos!");
+	QuestWood->TargetItem = WoodItem;
+	QuestWood->TargetCount = 3;
+	QuestWood->bConsumeItems = false;  // primeira missão gentil: não tira os itens
+	QuestWood->RewardCoins = 50;
+
+	QuestBerries = NewObject<UOracleQuestDefinition>(this, TEXT("Quest_Abobora"));
+	QuestBerries->Title = NSLOCTEXT("OracleDemo", "QBerryT", "Colheita Estrelada");
+	QuestBerries->Description = NSLOCTEXT("OracleDemo", "QBerryD", "Traga 4 Abóboras Estrela para o festival.");
+	QuestBerries->TargetItem = BerryItem;
+	QuestBerries->TargetCount = 4;
+	QuestBerries->RewardCoins = 120;
+	QuestBerries->RewardItem = SeedItem;
+	QuestBerries->RewardItemCount = 3;
+
 	BerryCrop = NewObject<UOracleCropDefinition>(this, TEXT("Crop_FrutaEstrela"));
 	BerryCrop->DisplayName = NSLOCTEXT("OracleDemo", "BerryCrop", "Fruta Estrela");
 	BerryCrop->GrowthDays = 2;
@@ -174,5 +194,9 @@ void AOracleDemoWorld::GiveStartingItems()
 
 		Player->GetCrafting()->LearnRecipe(ChairRecipe);
 		Player->GetCrafting()->LearnRecipe(PieRecipe);
+
+		UOracleQuestComponent* Q = Player->GetQuests();
+		Q->QueueQuest(QuestWood);
+		Q->QueueQuest(QuestBerries);
 	}
 }

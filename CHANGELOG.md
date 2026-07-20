@@ -18,6 +18,13 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 - Packs: Stylized Village, Pack of Tree Ents e FANTASTIC Village Pack no projeto (fora do git).
 - Publicado em github.com/karen-arwen/project-oracle (privado).
 
+## [0.9.0] - 2026-07-19 — Missões (modo autônomo)
+
+### Adicionado
+- **Quests** (`UOracleQuestDefinition` + `UOracleQuestComponent`): missões de coleta com recompensa (moedas + item), fila que emenda uma na outra — o jogador nunca fica sem objetivo. Conclusão automática ao atingir a meta, com toast dourado.
+- HUD: missão ativa fixa no topo esquerdo com progresso (ex.: "Coletor Iniciante: 2/3 Madeira").
+- Duas missões demo em sequência (madeira → abóboras) no mundo demo.
+
 ## [0.8.0] - 2026-07-19 — Clima, Progressão, Áudio e Economia (modo autônomo)
 
 ### Adicionado

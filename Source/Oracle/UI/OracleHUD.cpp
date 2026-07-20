@@ -8,6 +8,7 @@
 #include "Crafting/OracleCraftingComponent.h"
 #include "Crafting/OracleRecipeDefinition.h"
 #include "Economy/OracleWalletComponent.h"
+#include "Quests/OracleQuestComponent.h"
 #include "Skills/OracleSkillsComponent.h"
 #include "World/OracleWeatherSubsystem.h"
 #include "Core/OracleTimeSubsystem.h"
@@ -43,6 +44,17 @@ void AOracleHUD::DrawHUD()
 	// Moedas (topo direito).
 	DrawPanelText(FString::Printf(TEXT("%d Folhas"), Player->GetWallet()->GetCoins()),
 		Canvas->SizeX - 180.f, 24.f, FLinearColor(1.f, 0.9f, 0.4f), 1.3f);
+
+	// Missão ativa (topo esquerdo — sempre visível, é o norte do jogador).
+	if (const UOracleQuestComponent* Quest = Player->GetQuests())
+	{
+		const FText Objective = Quest->GetObjectiveText();
+		if (!Objective.IsEmpty())
+		{
+			DrawPanelText(TEXT("★ Missão"), 32.f, 24.f, FLinearColor(1.f, 0.85f, 0.4f), 1.1f);
+			DrawPanelText(Objective.ToString(), 32.f, 48.f, FLinearColor::White, 1.05f);
+		}
+	}
 
 	// Prompt de interação (centro-baixo).
 	const FText Prompt = Player->GetInteraction()->GetFocusedText();
