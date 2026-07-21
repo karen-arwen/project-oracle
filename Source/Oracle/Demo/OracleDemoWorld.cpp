@@ -10,6 +10,7 @@
 #include "Economy/OracleShop.h"
 #include "Fishing/OracleFishDefinition.h"
 #include "Fishing/OracleFishingSpot.h"
+#include "NPC/OracleVillager.h"
 #include "Quests/OracleQuestComponent.h"
 #include "Quests/OracleQuestDefinition.h"
 #include "Farming/OracleCropDefinition.h"
@@ -218,6 +219,33 @@ void AOracleDemoWorld::SpawnWorldContent()
 		{
 			Spot->Marker->SetStaticMesh(Sphere);
 			Spot->Marker->SetWorldScale3D(FVector(0.4f, 0.4f, 0.1f));
+		}
+	}
+
+	// Aldeões com rotina e diálogo.
+	{
+		AOracleVillager* Lia = World->SpawnActor<AOracleVillager>(
+			Origin + FVector(-400.f, 100.f, 90.f), FRotator::ZeroRotator);
+		if (Lia)
+		{
+			Lia->Setup(NSLOCTEXT("OracleDemo", "Lia", "Lia"),
+				{ NSLOCTEXT("OracleDemo", "Lia1", "Que dia lindo em Oracle, não acha?"),
+				  NSLOCTEXT("OracleDemo", "Lia2", "Ouvi dizer que há um peixe dourado no lago..."),
+				  NSLOCTEXT("OracleDemo", "Lia3", "Se colher abóboras, o mercado paga bem!") },
+				Origin + FVector(-600.f, -300.f, 90.f),  // casa
+				Origin + FVector(-200.f, 200.f, 90.f));   // praça (dia)
+		}
+
+		AOracleVillager* Tom = World->SpawnActor<AOracleVillager>(
+			Origin + FVector(-450.f, -150.f, 90.f), FRotator::ZeroRotator);
+		if (Tom)
+		{
+			Tom->Setup(NSLOCTEXT("OracleDemo", "Tom", "Tom"),
+				{ NSLOCTEXT("OracleDemo", "Tom1", "Preciso de madeira para consertar o moinho."),
+				  NSLOCTEXT("OracleDemo", "Tom2", "Você já decorou sua casa? Fica ótimo!"),
+				  NSLOCTEXT("OracleDemo", "Tom3", "À noite eu volto pra casa. Bons sonhos!") },
+				Origin + FVector(-700.f, 200.f, 90.f),
+				Origin + FVector(-150.f, -100.f, 90.f));
 		}
 	}
 

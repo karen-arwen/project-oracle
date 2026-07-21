@@ -25,6 +25,17 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 - HUD: missão ativa fixa no topo esquerdo com progresso (ex.: "Coletor Iniciante: 2/3 Madeira").
 - Duas missões demo em sequência (madeira → abóboras) no mundo demo.
 
+## [0.9.0] - 2026-07-21 — Pesca, Missões e Vila viva (modo autônomo)
+
+### Adicionado
+- **Quests** (`UOracleQuestDefinition` + `UOracleQuestComponent`): missões de coleta com recompensa (moedas/itens), fila que mantém sempre uma ativa, HUD de objetivo. Duas missões demo encadeadas.
+- **Pesca** (`UOracleFishDefinition` + `UOracleFishingComponent` + `AOracleFishingSpot`): minigame de timing cozy (lançar → morder → puxar), peixes sorteados por raridade/peso, XP de Pesca, prompt "FISGOU!" no HUD. Pesqueiro no mundo demo com peixe comum e lendário.
+- **NPCs** (`AOracleVillager`): aldeões com diálogo rotativo, amizade (marcos celebrados) e rotina dia/noite (praça de dia, casa de noite) escutando o TimeSubsystem. Lia e Tom no mundo demo.
+- Skill de Pesca adicionada à progressão.
+
+### Nota
+- Módulos audio/economy/quests/fishing/npc compilam (UHT+cpp OK); link final aguarda liberar lock do OneDrive na pasta do projeto. Pausar OneDrive resolve.
+
 ## [0.8.0] - 2026-07-19 — Clima, Progressão, Áudio e Economia (modo autônomo)
 
 ### Adicionado
