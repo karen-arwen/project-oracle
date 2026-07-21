@@ -45,4 +45,7 @@ private:
 	UPROPERTY() TObjectPtr<UOracleRecipeDefinition> PieRecipe;
 	UPROPERTY() TObjectPtr<UOracleQuestDefinition> QuestWood;
 	UPROPERTY() TObjectPtr<UOracleQuestDefinition> QuestBerries;
+	UPROPERTY() TObjectPtr<UOracleItemDefinition> FishCommonItem;
+	UPROPERTY() TObjectPtr<UOracleItemDefinition> FishRareItem;
+	UPROPERTY() TArray<TObjectPtr<class UOracleFishDefinition>> DemoFish;
 };

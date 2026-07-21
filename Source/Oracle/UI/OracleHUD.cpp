@@ -8,6 +8,7 @@
 #include "Crafting/OracleCraftingComponent.h"
 #include "Crafting/OracleRecipeDefinition.h"
 #include "Economy/OracleWalletComponent.h"
+#include "Fishing/OracleFishingComponent.h"
 #include "Quests/OracleQuestComponent.h"
 #include "Skills/OracleSkillsComponent.h"
 #include "World/OracleWeatherSubsystem.h"
@@ -87,6 +88,24 @@ void AOracleHUD::DrawHUD()
 					*Entry.Item->DisplayName.ToString()),
 				32.f, Y, FLinearColor::White);
 			Y += 22.f;
+		}
+	}
+
+	// Estado da pesca (centro, grande — é ação em tempo real).
+	if (const UOracleFishingComponent* Fish = Player->GetFishing())
+	{
+		const EOracleFishingState FS = Fish->GetState();
+		if (FS == EOracleFishingState::Casting)
+		{
+			DrawPanelText(TEXT("🎣 Aguardando a fisgada..."),
+				Canvas->SizeX * 0.5f - 130.f, Canvas->SizeY * 0.6f,
+				FLinearColor(0.7f, 0.9f, 1.f), 1.3f);
+		}
+		else if (FS == EOracleFishingState::Biting)
+		{
+			DrawPanelText(TEXT("❗ FISGOU! [E] PUXE AGORA!"),
+				Canvas->SizeX * 0.5f - 150.f, Canvas->SizeY * 0.6f,
+				FLinearColor(1.f, 0.85f, 0.3f), 1.6f);
 		}
 	}
 

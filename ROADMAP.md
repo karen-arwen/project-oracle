@@ -24,8 +24,10 @@ Regra: um módulo por vez, cada um 100% funcional antes do próximo. Critério d
 | 16 | ✅ Áudio v1 (código) | Ambiente dia/noite/chuva com crossfade | Falta atribuir sons dos packs |
 | 17 | ✅ Economia v1 | Carteira + banca de vendas | Vender fecha o loop |
 | 18 | Vila do Oracle | Montar a vila no L_Sandbox com FANTASTIC pack | Mapa próprio bonito |
-| 19 | Quests v1 | Missões ("colete 5 madeiras") com recompensa | Sempre algo a fazer |
-| 20 | Pesca v1 | Minigame no lago da vila | Compêndio de peixes |
+| 19 | ✅ Quests v1 | Missões com recompensa, sempre uma ativa | Sempre algo a fazer |
+| 20 | ✅ Pesca v1 | Minigame de timing, peixes por raridade, XP de pesca | Fisgar dá alegria |
+| 21 | NPCs v1 | Aldeões com rotina (dia/noite) + diálogo simples | Vila viva |
+| 22 | Vila do Oracle | Montar o mapa próprio com os packs | Screenshot digna |
 
 **Meta do Prototype:** 20 minutos de loop cozy — explorar, coletar, plantar, decorar — que dê vontade de continuar. Tudo com assets placeholder/marketplace.
 

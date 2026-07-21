@@ -8,6 +8,8 @@
 #include "Crafting/OracleCraftingComponent.h"
 #include "Crafting/OracleRecipeDefinition.h"
 #include "Economy/OracleShop.h"
+#include "Fishing/OracleFishDefinition.h"
+#include "Fishing/OracleFishingSpot.h"
 #include "Quests/OracleQuestComponent.h"
 #include "Quests/OracleQuestDefinition.h"
 #include "Farming/OracleCropDefinition.h"
@@ -113,6 +115,39 @@ void AOracleDemoWorld::CreateDemoDefinitions()
 	QuestBerries->RewardItem = SeedItem;
 	QuestBerries->RewardItemCount = 3;
 
+	// Peixes demo (comum + raro) e seus itens de coleção.
+	FishCommonItem = MakeItem(this, TEXT("Item_Peixinho"),
+		NSLOCTEXT("OracleDemo", "FishC", "Peixe-Lua Comum"),
+		EOracleItemCategory::Food,
+		TEXT("/Game/StylizedIsland/Mesh/Props/SM_Food/SM_Stylized_Food_Mesh/SM_Stylized_Food_Fish.SM_Stylized_Food_Fish"),
+		FVector(0.5f));
+	FishCommonItem->BaseValue = 8;
+
+	FishRareItem = MakeItem(this, TEXT("Item_PeixeDourado"),
+		NSLOCTEXT("OracleDemo", "FishR", "Peixe Dourado Estelar"),
+		EOracleItemCategory::Food,
+		TEXT("/Game/StylizedIsland/Mesh/Props/SM_Food/SM_Stylized_Food_Mesh/SM_Stylized_Food_Fish.SM_Stylized_Food_Fish"),
+		FVector(0.7f));
+	FishRareItem->BaseValue = 60;
+
+	{
+		UOracleFishDefinition* FishC = NewObject<UOracleFishDefinition>(this, TEXT("Fish_Comum"));
+		FishC->DisplayName = FishCommonItem->DisplayName;
+		FishC->Rarity = EOracleFishRarity::Comum;
+		FishC->CatchWeight = 4.f;
+		FishC->Item = FishCommonItem;
+		FishC->FishingXP = 10;
+
+		UOracleFishDefinition* FishR = NewObject<UOracleFishDefinition>(this, TEXT("Fish_Raro"));
+		FishR->DisplayName = FishRareItem->DisplayName;
+		FishR->Rarity = EOracleFishRarity::Lendario;
+		FishR->CatchWeight = 1.f;
+		FishR->Item = FishRareItem;
+		FishR->FishingXP = 40;
+
+		DemoFish = {FishC, FishR};
+	}
+
 	BerryCrop = NewObject<UOracleCropDefinition>(this, TEXT("Crop_FrutaEstrela"));
 	BerryCrop->DisplayName = NSLOCTEXT("OracleDemo", "BerryCrop", "Fruta Estrela");
 	BerryCrop->GrowthDays = 2;
@@ -166,6 +201,23 @@ void AOracleDemoWorld::SpawnWorldContent()
 		{
 			const FVector Pos = Origin + FVector(500.f + Row * 220.f, -900.f + Col * 220.f, 8.f);
 			World->SpawnActor<AOracleFarmPlot>(Pos, FRotator::ZeroRotator);
+		}
+	}
+
+	// Pesqueiro à esquerda do spawn (perto da água da vila).
+	if (AOracleFishingSpot* Spot = World->SpawnActor<AOracleFishingSpot>(
+			Origin + FVector(-200.f, 400.f, 20.f), FRotator::ZeroRotator))
+	{
+		TArray<UOracleFishDefinition*> Pool;
+		for (UOracleFishDefinition* Fish : DemoFish)
+		{
+			Pool.Add(Fish);
+		}
+		Spot->SetFishPool(Pool);
+		if (UStaticMesh* Sphere = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Cylinder.Cylinder")))
+		{
+			Spot->Marker->SetStaticMesh(Sphere);
+			Spot->Marker->SetWorldScale3D(FVector(0.4f, 0.4f, 0.1f));
 		}
 	}
 

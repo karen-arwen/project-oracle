@@ -54,6 +54,7 @@ FText UOracleSkillsComponent::GetSkillName(const EOracleSkill Skill)
 	case EOracleSkill::Artesanato: return NSLOCTEXT("Oracle", "SkCraft", "Artesanato");
 	case EOracleSkill::Construcao: return NSLOCTEXT("Oracle", "SkBuild", "Construção");
 	case EOracleSkill::Exploracao: return NSLOCTEXT("Oracle", "SkExplore", "Exploração");
+	case EOracleSkill::Pesca:      return NSLOCTEXT("Oracle", "SkFish", "Pesca");
 	}
 	return FText::GetEmpty();
 }

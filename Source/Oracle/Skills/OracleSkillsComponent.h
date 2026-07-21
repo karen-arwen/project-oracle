@@ -14,7 +14,8 @@ enum class EOracleSkill : uint8
 	Fazenda,
 	Artesanato,
 	Construcao,
-	Exploracao
+	Exploracao,
+	Pesca
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOracleSkillLevelUp, EOracleSkill, Skill, int32, NewLevel);

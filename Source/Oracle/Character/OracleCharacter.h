@@ -17,6 +17,7 @@ class UOracleCraftingComponent;
 class UOracleSkillsComponent;
 class UOracleWalletComponent;
 class UOracleQuestComponent;
+class UOracleFishingComponent;
 class UOracleInteractionComponent;
 class UOracleInventoryComponent;
 class UOraclePlacementComponent;
@@ -69,6 +70,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Oracle")
 	UOracleQuestComponent* GetQuests() const { return Quests; }
+
+	UFUNCTION(BlueprintPure, Category = "Oracle")
+	UOracleFishingComponent* GetFishing() const { return Fishing; }
 
 	UCameraComponent* GetThirdPersonCamera() const { return Camera; }
 
@@ -126,6 +130,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Oracle|Systems")
 	TObjectPtr<UOracleQuestComponent> Quests;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Oracle|Systems")
+	TObjectPtr<UOracleFishingComponent> Fishing;
 
 	// --- Game feel: pulo ---
 	/** Janela (s) em que o pulo ainda vale após sair de uma borda. */
